@@ -20,7 +20,7 @@ import org.jsoup.nodes.Document;
  * @author Samuel
  */
 @XStreamAlias("breed")
-public class Breed {
+public class Breed implements Comparable<Breed> {
 
     private final String name;
     private final String description;
@@ -59,6 +59,30 @@ public class Breed {
         return personality;
     }
 
+    @Override
+    public int compareTo(Breed o)
+    {
+        return this.name.compareTo(o.name);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Breed{" + "\r\n name=" + name + ",\r\n description=" + description + ",\r\n ranking=" + ranking + ",\r\n personality=" + personality + "\r\n}";
+    }
+
+    @XStreamAlias("breeds")
+    private static class Breeds {
+
+        @XStreamImplicit
+        Collection<Breed> breeds;
+
+        public Breeds(Collection<Breed> breeds)
+        {
+            this.breeds = breeds;
+        }
+    }
+
     public static Breed parseDogBreed(Document document) throws NullPointerException
     {
         String name = document.select("body > main > div.breadcrumbs > ul > li.last").text();
@@ -76,24 +100,6 @@ public class Breed {
     public static String toXMLObject(Collection<Breed> breeds)
     {
         return Utils.getXStream().toXML(new Breeds(breeds));
-    }
-
-    @XStreamAlias("breeds")
-    private static class Breeds {
-
-        @XStreamImplicit
-        Collection<Breed> breeds;
-
-        public Breeds(Collection<Breed> breeds)
-        {
-            this.breeds = breeds;
-        }
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Breed{" + "\r\n name=" + name + ",\r\n description=" + description + ",\r\n ranking=" + ranking + ",\r\n personality=" + personality + "\r\n}";
     }
 
 }
