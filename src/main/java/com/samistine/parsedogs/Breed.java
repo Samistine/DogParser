@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.samistine.parsedogs;
 
-import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 
 /**
  *
- * @author Samuel
+ * @author Samuel Seidel
  */
 @XStreamAlias("breed")
 public class Breed implements Comparable<Breed> {
