@@ -31,17 +31,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException
     {
+        List<String> dogBreedURLs = new ArrayList<>();
 
-        //Generate all the links we need to seach through
-        List<String> urlPages = new ArrayList<>();
+        //Go through all the index pages and collect the individual links to each of the dog breeds
         for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++)
         {
-            urlPages.add("http://www.akc.org/dog-breeds/?letter=" + alphabet);
-        }
+            String url = ("http://www.akc.org/dog-breeds/?letter=" + alphabet);
 
-        List<String> dogBreedURLs = new ArrayList<>();
-        for (String url : urlPages)
-        {
             //Get HTML Document
             System.out.println("Connecting to " + url);
             Document doc = Jsoup.connect(url).timeout(10_000).get();
