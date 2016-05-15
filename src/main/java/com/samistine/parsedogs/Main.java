@@ -84,6 +84,7 @@ public class Main {
                 + " successfully downloaded and parsed " + successfull + "/" + total);
 
         //Convert our java objects to xml foramatting
+        Collections.sort(breeds);
         String xml = Breed.toXMLObject(breeds);
 
         //Store the file here
