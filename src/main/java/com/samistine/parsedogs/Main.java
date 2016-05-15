@@ -25,20 +25,23 @@ import org.jsoup.select.Elements;
 
 /**
  *
- * @author Samuel
+ * @author Samuel Seidel
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException
+    {
 
         //Generate all the links we need to seach through
         List<String> urlPages = new ArrayList<>();
-        for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
+        for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++)
+        {
             urlPages.add("http://www.akc.org/dog-breeds/?letter=" + alphabet);
         }
 
         List<String> dogBreedURLs = new ArrayList<>();
-        for (String url : urlPages) {
+        for (String url : urlPages)
+        {
             //Get HTML Document
             System.out.println("Connecting to " + url);
             Document doc = Jsoup.connect(url).timeout(10_000).get();
@@ -48,7 +51,8 @@ public class Main {
             System.out.println(links.size() + " dog breeds found.");
 
             //Iterate over said data
-            for (Element link : links) {
+            for (Element link : links)
+            {
                 //Get the url of the dog breed
                 String dogBreedURL = link.attr("abs:href");
                 //Add it to our list
@@ -69,7 +73,8 @@ public class Main {
         final AtomicInteger successfull = new AtomicInteger(0);
 
         ExecutorService pool = Executors.newFixedThreadPool(10);
-        for (String url : dogBreedURLs) {
+        for (String url : dogBreedURLs)
+        {
             pool.submit(new BreedDownloadAndProcessRunnable(total, breeds, url, successfull));
         }
         pool.shutdown();
@@ -85,7 +90,8 @@ public class Main {
         File file = new File("output.xml");
 
         //Write the xml to file
-        try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), Charset.defaultCharset())) {
+        try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), Charset.defaultCharset()))
+        {
             writer.write(xml);
         }
 

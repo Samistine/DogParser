@@ -15,14 +15,15 @@ import org.jsoup.nodes.Document;
  *
  * @author Samuel
  */
-public class BreedDownloadAndProcessRunnable implements Runnable{
+public class BreedDownloadAndProcessRunnable implements Runnable {
 
     private final int totalBreeds;
     private final List<Breed> breeds;
     private final String url;
     private final AtomicInteger successfull;
 
-    public BreedDownloadAndProcessRunnable(int totalBreeds, List<Breed> breeds, String url, AtomicInteger successfull) {
+    public BreedDownloadAndProcessRunnable(int totalBreeds, List<Breed> breeds, String url, AtomicInteger successfull)
+    {
         this.totalBreeds = totalBreeds;
         this.breeds = breeds;
         this.url = url;
@@ -30,14 +31,18 @@ public class BreedDownloadAndProcessRunnable implements Runnable{
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         int retryCount = 3;
         int tryAttempts = 0;
-        while (tryAttempts < retryCount) {
-            if (tryAttempts != 0) {
+        while (tryAttempts < retryCount)
+        {
+            if (tryAttempts != 0)
+            {
                 System.out.println("Retry (" + tryAttempts + 1 + "/" + 3 + ")");
             }
-            try {
+            try
+            {
                 //Wait 500 miliseconds to prevent tripping web filter
                 LockSupport.parkNanos(500_000_000);
 
@@ -52,11 +57,14 @@ public class BreedDownloadAndProcessRunnable implements Runnable{
 
                 System.out.println("Progress: " + successfull.addAndGet(1) + "/" + totalBreeds);
                 break;
-            } catch (Exception ex) {
-                if (tryAttempts + 1 == 3) {
+            } catch (Exception ex)
+            {
+                if (tryAttempts + 1 == 3)
+                {
                     System.err.println("Skipping, due to errors on multiple retries");
                     ex.printStackTrace();
-                } else {
+                } else
+                {
                     System.err.println("An error occured on " + url);
                 }
             }

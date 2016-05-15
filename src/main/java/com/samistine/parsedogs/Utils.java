@@ -14,7 +14,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  */
 public class Utils {
 
-    public static XStream getXStream() {
+    public static XStream getXStream()
+    {
         XStream xstream = new XStream(new DomDriver());
         xstream.autodetectAnnotations(true);
         return xstream;

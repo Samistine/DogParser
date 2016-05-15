@@ -27,7 +27,8 @@ public class Breed {
     private final String ranking;
     private final String personality;
 
-    public Breed(String name, String description, String ranking, String personality) {
+    public Breed(String name, String description, String ranking, String personality)
+    {
         Validate.notNull(name);
         Validate.notNull(description);
         Validate.notNull(ranking);
@@ -38,12 +39,28 @@ public class Breed {
         this.personality = personality;
     }
 
-    public String getName()        {  return name;         }
-    public String getDescription() {  return description;  }
-    public String getRanking()     {  return ranking;      }
-    public String getPersonality() {  return personality;  }
+    public String getName()
+    {
+        return name;
+    }
 
-    public static Breed parseDogBreed(Document document) throws NullPointerException {
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public String getRanking()
+    {
+        return ranking;
+    }
+
+    public String getPersonality()
+    {
+        return personality;
+    }
+
+    public static Breed parseDogBreed(Document document) throws NullPointerException
+    {
         String name = document.select("body > main > div.breadcrumbs > ul > li.last").text();
         String description = document.select("body > main > section.feed-standard > article > figure > figcaption > div > ul > li.slide[data-tip-id=\"1\"] p").text();
         String ranking = document.select(".bigrank").text();
@@ -51,23 +68,31 @@ public class Breed {
         return new Breed(name, description, ranking, personality);
     }
 
-    public static String toXMLObject(Breed breed) {
+    public static String toXMLObject(Breed breed)
+    {
         return Utils.getXStream().toXML(breed);
     }
 
-    public static String toXMLObject(Collection<Breed> breeds) {
+    public static String toXMLObject(Collection<Breed> breeds)
+    {
         return Utils.getXStream().toXML(new Breeds(breeds));
     }
 
     @XStreamAlias("breeds")
     private static class Breeds {
+
         @XStreamImplicit
         Collection<Breed> breeds;
-        public Breeds(Collection<Breed> breeds) { this.breeds = breeds; }
+
+        public Breeds(Collection<Breed> breeds)
+        {
+            this.breeds = breeds;
+        }
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Breed{" + "\r\n name=" + name + ",\r\n description=" + description + ",\r\n ranking=" + ranking + ",\r\n personality=" + personality + "\r\n}";
     }
 
