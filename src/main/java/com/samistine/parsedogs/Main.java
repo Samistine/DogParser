@@ -35,10 +35,10 @@ public class Main {
 
             //Get HTML Document
             System.out.println("Connecting to " + url);
-            Document doc = Jsoup.connect(url).timeout(10_000).get();
+            Document doc = Jsoup.connect(url).timeout(20_000).get();
 
             //Gather the html data we are looking for
-            Elements links = doc.select("body > main > section.event-holder > div > article > div.scale-contents > h2 > a");
+            Elements links = doc.select("#breed-type-card- > a");
             System.out.println(links.size() + " dog breeds found.");
 
             //Iterate over said data
@@ -63,7 +63,7 @@ public class Main {
         final List<Breed> breeds = Collections.synchronizedList(new ArrayList<Breed>());
         final AtomicInteger successfull = new AtomicInteger(0);
 
-        ExecutorService pool = Executors.newFixedThreadPool(10);
+        ExecutorService pool = Executors.newFixedThreadPool(24);
         for (String url : dogBreedURLs)
         {
             pool.submit(new BreedDownloadAndProcessRunnable(total, breeds, url, successfull));

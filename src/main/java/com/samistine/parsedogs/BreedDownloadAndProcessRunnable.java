@@ -15,14 +15,14 @@ public class BreedDownloadAndProcessRunnable implements Runnable {
     private final int totalBreeds;
     private final List<Breed> breeds;
     private final String url;
-    private final AtomicInteger successfull;
+    private final AtomicInteger successful;
 
     public BreedDownloadAndProcessRunnable(int totalBreeds, List<Breed> breeds, String url, AtomicInteger successfull)
     {
         this.totalBreeds = totalBreeds;
         this.breeds = breeds;
         this.url = url;
-        this.successfull = successfull;
+        this.successful = successfull;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class BreedDownloadAndProcessRunnable implements Runnable {
                 //Add Breed object to overall list
                 breeds.add(breed);
 
-                System.out.println("Progress: " + successfull.addAndGet(1) + "/" + totalBreeds);
+                System.out.println("Progress: " + successful.addAndGet(1) + "/" + totalBreeds+" ["+Thread.currentThread().getId()+"]");
                 break;
             } catch (Exception ex)
             {
@@ -61,6 +61,7 @@ public class BreedDownloadAndProcessRunnable implements Runnable {
                 } else
                 {
                     System.err.println("An error occured on " + url);
+                    ex.printStackTrace();
                 }
             }
         }
