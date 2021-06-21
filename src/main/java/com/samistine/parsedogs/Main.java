@@ -29,7 +29,7 @@ public class Main {
         List<String> dogBreedURLs = new ArrayList<>();
 
         //Go through all the index pages and collect the individual links to each of the dog breeds
-        for (char alphabet = 'A'; alphabet <= 'B'; alphabet++)
+        for (char alphabet = 'A'; alphabet <= 'Z'; alphabet++)
         {
             String url = ("http://www.akc.org/dog-breeds/?letter=" + alphabet);
 
